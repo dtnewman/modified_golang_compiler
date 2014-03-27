@@ -84,16 +84,16 @@ walk(Node *fn)
 			lineno = l->n->defn->left->lineno;
 			// DTNEWMAN changes below so that unused variables
 			// are okay if unused_vars_ok flag is == 1
-//			if (!unused_vars_ok){
+			if (!unused_vars_ok){
 				yyerror("%S declared and not used", l->n->sym);
-//			}
+			}
 			l->n->defn->left->used = 1; // suppress repeats
 		} else {
 			lineno = l->n->lineno;
 			// DTNEWMAN changes below, does same thing as change from a few lines up
-//			if (!unused_vars_ok){
+			if (!unused_vars_ok){
 				yyerror("%S declared and not used", l->n->sym);
-//			}
+			}
 		}
 	}	
 	lineno = lno;
