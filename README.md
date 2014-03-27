@@ -7,7 +7,7 @@ One might argue that these changes technically break the the Go language's speci
 
 I made these changes to my compiler since I found myself constantly needing to deal with unused variables and imported packages when testing out new code. I have not tested these changes extensively, so implement them at your own risk. See http://golang.org/doc/install/source for more information about installing from source. To install with my modifications, you can follow the instructions there, but simply replace the three files mentioned above.
 
-Once installed, you can run the code as follows:
+Once installed, you can run your code as follows:
 
 1) <b>go run test.go</b> will continue to use the default compiler and will throw errors for unused variables
 
