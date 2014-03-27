@@ -1,4 +1,4 @@
-Modified GO v.1.2 COMPILER
+Modified GO v.1.2 Compiler
 ====
 
 I changed three of the files in the directory go/src/cmd/gc so that I can now run Go code with the option of disabling errors due to unused variables. The changed files are walk.c, lex.c and go.h. To see specific changes, search for comments containing "DTNEWMAN" in these files.
