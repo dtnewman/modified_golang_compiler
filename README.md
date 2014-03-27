@@ -16,3 +16,5 @@ Once installed, you can run your code as follows:
 3) <b>go run -gcflags '-unused_pkgs' test.go</b> will ignore errors for unused imported packages
 
 4) <b>go run -gcflags '-unused_pkgs -unused_vars' test.go</b> will ignore errors for both unused imported packages and unused variables
+
+This code uses the same license as the Go code which I pull from, which can be found in the "Go" folder of this repository.
