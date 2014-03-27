@@ -56,46 +56,22 @@ walk(Node *fn)
 	for(l=fn->dcl; l; l=l->next)
 		if(l->n->op == ONAME && (l->n->class&~PHEAP) == PAUTO && l->n->defn && l->n->defn->op == OTYPESW && l->n->used)
 			l->n->defn->left->used++;
+	
+	for(l=fn->dcl; l; l=l->next) {
+		if(l->n->op != ONAME || (l->n->class&~PHEAP) != PAUTO || l->n->sym->name[0] == '&' || l->n->used)
+			continue;
+		if(l->n->defn && l->n->defn->op == OTYPESW) {
+			if(l->n->defn->left->used)
+				continue;
+			lineno = l->n->defn->left->lineno;
+			yyerror("%S declared and not used", l->n->sym);
+			l->n->defn->left->used = 1; // suppress repeats
+		} else {
+			lineno = l->n->lineno;
+			yyerror("%S declared and not used", l->n->sym);
+		}
+	}	
 
-// DTNEWMAN change
-// commenting out original code
-/*	
-	for(l=fn->dcl; l; l=l->next) {
-		if(l->n->op != ONAME || (l->n->class&~PHEAP) != PAUTO || l->n->sym->name[0] == '&' || l->n->used)
-			continue;
-		if(l->n->defn && l->n->defn->op == OTYPESW) {
-			if(l->n->defn->left->used)
-				continue;
-			lineno = l->n->defn->left->lineno;
-			yyerror("%S declared and not used", l->n->sym);
-			l->n->defn->left->used = 1; // suppress repeats
-		} else {
-			lineno = l->n->lineno;
-			yyerror("%S declared and not used", l->n->sym);
-		}
-	}	
-*/
-	for(l=fn->dcl; l; l=l->next) {
-		if(l->n->op != ONAME || (l->n->class&~PHEAP) != PAUTO || l->n->sym->name[0] == '&' || l->n->used)
-			continue;
-		if(l->n->defn && l->n->defn->op == OTYPESW) {
-			if(l->n->defn->left->used)
-				continue;
-			lineno = l->n->defn->left->lineno;
-			// DTNEWMAN changes below so that unused variables
-			// are okay if unused_vars_ok flag is == 1
-//			if (!unused_vars_ok){
-				yyerror("%S declared and not used", l->n->sym);
-//			}
-			l->n->defn->left->used = 1; // suppress repeats
-		} else {
-			lineno = l->n->lineno;
-			// DTNEWMAN changes below, does same thing as change from a few lines up
-//			if (!unused_vars_ok){
-				yyerror("%S declared and not used", l->n->sym);
-//			}
-		}
-	}	
 	lineno = lno;
 	if(nerrors != 0)
 		return;

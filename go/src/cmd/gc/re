@@ -274,6 +274,7 @@ main(int argc, char *argv[])
 // DTNEWMAN addition 
 	flagcount("unused_vars", "allow unused variables without throwing error", &unused_vars_ok);
 
+	print("HEY, %d \n", unused_vars_ok);
 	if(thechar == '6')
 		flagcount("largemodel", "generate code that assumes a large memory model", &flag_largemodel);
 

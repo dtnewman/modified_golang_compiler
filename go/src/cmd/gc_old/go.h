@@ -985,13 +985,6 @@ EXTERN	int	nointerface;
 EXTERN	int	fieldtrack_enabled;
 EXTERN	int	precisestack_enabled;
 
-
-// DTNEWMAN additions
-// if unused_vars_ok == 1, it will no longer throw a flag for unused
-// variables
-EXTERN 	int	unused_vars_ok; 
-
-
 /*
  *	y.tab.c
  */

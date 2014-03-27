@@ -271,9 +271,6 @@ main(int argc, char *argv[])
 	flagcount("w", "debug type checking", &debug['w']);
 	flagcount("x", "debug lexer", &debug['x']);
 	flagcount("y", "debug declarations in canned imports (with -d)", &debug['y']);
-// DTNEWMAN addition 
-	flagcount("unused_vars", "allow unused variables without throwing error", &unused_vars_ok);
-
 	if(thechar == '6')
 		flagcount("largemodel", "generate code that assumes a large memory model", &flag_largemodel);
 
