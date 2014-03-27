@@ -988,9 +988,10 @@ EXTERN	int	precisestack_enabled;
 
 // DTNEWMAN additions
 // if unused_vars_ok == 1, it will no longer throw a flag for unused
-// variables
+// variables. If unused_pkgss_ok == 1, it will no longer throw a flag 
+// for imported but unused packages
 EXTERN 	int	unused_vars_ok; 
-
+EXTERN 	int	unused_pkgs_ok; 
 
 /*
  *	y.tab.c

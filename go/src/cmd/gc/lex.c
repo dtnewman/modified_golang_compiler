@@ -271,8 +271,10 @@ main(int argc, char *argv[])
 	flagcount("w", "debug type checking", &debug['w']);
 	flagcount("x", "debug lexer", &debug['x']);
 	flagcount("y", "debug declarations in canned imports (with -d)", &debug['y']);
-// DTNEWMAN addition 
+
+	// DTNEWMAN additions 
 	flagcount("unused_vars", "allow unused variables without throwing error", &unused_vars_ok);
+	flagcount("unused_pkgs", "allow unused imported packages without throwing error", &unused_pkgs_ok);
 
 	if(thechar == '6')
 		flagcount("largemodel", "generate code that assumes a large memory model", &flag_largemodel);
@@ -2290,6 +2292,35 @@ yytinit(void)
 	}		
 }
 
+// DTNEWMAN modified code in function below. See commented out function below for original code
+static void
+pkgnotused(int lineno, Strlit *path, char *name)
+{
+	char *elem;
+	
+	// If the package was imported with a name other than the final
+	// import path element, show it explicitly in the error message.
+	// Note that this handles both renamed imports and imports of
+	// packages containing unconventional package declarations.
+	// Note that this uses / always, even on Windows, because Go import
+	// paths always use forward slashes.
+	elem = strrchr(path->s, '/');
+	if(elem != nil)
+		elem++;
+	else
+		elem = path->s;
+
+	if (!unused_pkgs_ok)
+	{
+		if(name == nil || strcmp(elem, name) == 0)
+			yyerrorl(lineno, "imported and not used: \"%Z\"", path);
+		else
+			yyerrorl(lineno, "imported and not used: \"%Z\" as %s", path, name);
+	}
+}
+
+// original code
+/*
 static void
 pkgnotused(int lineno, Strlit *path, char *name)
 {
@@ -2307,11 +2338,11 @@ pkgnotused(int lineno, Strlit *path, char *name)
 	else
 		elem = path->s;
 	if(name == nil || strcmp(elem, name) == 0)
-		yyerrorl(lineno, "imported and not used: \"%Z\"", path);
+		yyerrorl(lineno, "imported and not used 4: \"%Z\"", path);
 	else
-		yyerrorl(lineno, "imported and not used: \"%Z\" as %s", path, name);
+		yyerrorl(lineno, "imported and not used 5: \"%Z\" as %s", path, name);
 }
-
+*/
 void
 mkpackage(char* pkgname)
 {
