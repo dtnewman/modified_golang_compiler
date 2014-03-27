@@ -5,7 +5,7 @@ I changed three of the files in the directory go/src/cmd/gc so that I can now ru
 
 One might argue that these changes technically break the the Go language's specifications, even though it is just a compiler option. See http://weekly.golang.org/doc/faq#unused_variables_and_imports for a discussion of why a compiler option like this is not included in the official golang compiler.
 
-Nonetheless, I don't love the workaround that they suggest there, so I made some changes to my compiler since I found myself constantly needing to deal with unused variables when compiling my code. I have not tested these changes extensively, so implement them at your own risk. See http://golang.org/doc/install/source for more information about installing from source. To install with my modifications, you can follow the instructions there, but simply replace the three files mentioned above.
+Nonetheless, I don't love the workaround that they suggest there, so I made some changes to my compiler since I found myself constantly needing to deal with unused variables when testing out new code. I have not tested these changes to the compiler extensively, so implement them at your own risk. See http://golang.org/doc/install/source for more information about installing from source. To install with my modifications, you can follow the instructions there, but simply replace the three files mentioned above.
 
 Once installed, you can run the code in two ways:
 
